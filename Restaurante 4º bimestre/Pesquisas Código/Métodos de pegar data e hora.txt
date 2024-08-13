@@ -1,0 +1,35 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+
+private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {                                         
+        atualiza();
+    }                                        
+
+    private String getData(String data) {
+        Date hoje = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(data);
+        return (sdf.format(hoje));
+    }
+
+    private String getHora(String hora) {
+        Date hoje = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat(hora);
+        return (sdf.format(hoje));
+    }
+    
+    private void atualiza() {
+        Timer t = new Timer();
+        TimerTask tt = new TimerTask() {
+            public void run() {
+                boolean ver = true;
+                do {
+                    txtHora.setText(getHora("HH:mm"));
+                    txtData.setText(getData("dd/MM/YYYY"));
+                } while (ver);
+            }
+        };
+        t.schedule(tt, 1000);
+}

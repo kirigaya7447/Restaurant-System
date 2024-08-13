@@ -1,0 +1,27 @@
+public boolean pesquisarMesa(String mesa) {
+        boolean sim;
+        ArrayList<Reserva> reservasTabe = new ArrayList();
+        Reserva r;
+        String sql = "SELECT * FROM funcionario WHERE mesaReserva LIKE \"" + mesa + "\"";
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                r = new Reserva();
+                r.setMesaReserva(rs.getString("mesaReserva"));
+                stmt.execute();
+                stmt.close();
+                reservasTabe.add(r);
+            }
+            stmt.close();
+            if(reservasTabe == null){
+                sim = false;
+            }
+            else{
+                sim = true;
+            }
+            return (sim);
+        } catch (SQLException err) {
+            throw new RuntimeException(err);
+        }
+    }
